@@ -1,20 +1,19 @@
 doctype html 
 html 
-    head
-        title Local Library 
-    style 
-        include style.css
-    body 
-        h1 Books by #{authorName}
-        #books
-        div 
-            ul 
-                each book in books 
-                    li= book.title
+  head
+      title Local Library 
+      link(rel="stylesheet", href="/style.css")
+  body 
+      h1 Books by #{authorName}
+      #books
+      div 
+          ul 
+              each book in books 
+                  li= book.title
 
-        div(class='container')
-            a(href="/viewAllAuthors") Back to Authors 
-            a(href="/") Home
+      div(class='container')
+          a(href="/viewAllAuthors") Back to Authors 
+          a(href="/") Home
     
 
 

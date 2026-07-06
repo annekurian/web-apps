@@ -1,11 +1,12 @@
 doctype html 
 html 
-    head
-        title Local Library 
-    body 
-        h1 Authors
-        div 
-            ul 
-                each author in authors 
-                    li 
-                        a(href="/viewBooksByAuthor/"+ author.id + "/" + author.name) #{author.name}
+  head
+    title Local Library 
+    link(rel="stylesheet", href="/style.css")
+  body 
+    h1 Authors
+    div 
+      ul 
+        each author in authors 
+          li 
+            a(href="/viewBooksByAuthor/"+ author.id + "/" + author.name) #{author.name}
