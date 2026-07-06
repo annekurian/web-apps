@@ -16,6 +16,17 @@ app.get("/viewAllAuthors", (req, res) => {
   });
 });
 
+app.get("/viewBooksByAuthor/:authorId/:authorName", (req, res) => {
+  const authorId = req.params.authorId;
+  const authorName = req.params.authorName;
+  db.all(
+    "SELECT title from books WHERE author_id = " + authorId,
+    (err, rows) => {
+      res.render("viewBooksByAuthor", { books: rows, authorName: authorName });
+    },
+  );
+});
+
 app.get("/viewAllBooks", (req, res) => {
   res.render("viewAllBooks");
 });

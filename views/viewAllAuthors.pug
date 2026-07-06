@@ -4,11 +4,12 @@ html
         title Local Library 
     body 
         h1 Authors
-        #authors 
-        ul 
-            each author in authors 
-                li 
-                    a #{author.name}
+        #authors
+        div 
+            ul 
+                each author in authors 
+                    li 
+                        a(href="/viewBooksByAuthor/"+ author.id + "/" + author.name) #{author.name}
 
 
                     
