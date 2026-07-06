@@ -7,5 +7,12 @@
   </head>
   <body>
     <h1>Authors</h1>
+    <div>
+      <ul>
+        {% for author in authors %}
+        <li>{{author[1]}}</li>
+        {% endfor %}
+      </ul>
+    </div>
   </body>
 </html>

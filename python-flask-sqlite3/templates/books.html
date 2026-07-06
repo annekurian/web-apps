@@ -7,5 +7,26 @@
   </head>
   <body>
     <h1>Books</h1>
+    <a href="/">Home</a>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Action</th>
+      </tr>
+      {% for book in books %}
+      <tr>
+        <td>{{book[1]}}</td>
+        <td>{{book[2]}}</td>
+        <td>{{book[3]}}</td>
+        <td>
+          <form action=`/deleteBook/${book[0]}` method="POST">
+            <button type="submit">Delete</a>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
   </body>
 </html>
