@@ -10,6 +10,16 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/viewAllAuthors", (req, res) => {
+  db.all("SELECT * from authors", (err, rows) => {
+    res.render("viewAllAuthors", { authors: rows });
+  });
+});
+
+app.get("/viewAllBooks", (req, res) => {
+  res.render("viewAllBooks");
+});
+
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
 });
