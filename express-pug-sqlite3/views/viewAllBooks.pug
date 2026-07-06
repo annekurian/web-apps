@@ -5,15 +5,15 @@ html
     style 
       include style.css
   body 
-    h1 Authors
+    h1 List of all books
     div(class='container') 
       a(href="/") Home
     div 
       table 
         tr 
           th Title 
-          th Genre 
-          th Author
+          th Author 
+          th Genre
           th Action
         each book in books 
           tr
@@ -21,7 +21,8 @@ html
             td  #{book.author}
             td  #{book.genre}
             td
-              a(href="/viewAllBooks/" + book.id + "/delete" class='danger-btn') Delete
+              form(action="/deleteBook/" + book.id + "/" + book.title method='POST')
+                button(type='submit' class='danger-btn') Delete
         
 
 
