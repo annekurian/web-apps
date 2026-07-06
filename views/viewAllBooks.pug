@@ -1,0 +1,28 @@
+doctype html 
+html 
+  head
+    title Local Library
+    style 
+      include style.css
+  body 
+    h1 Authors
+    div(class='container') 
+      a(href="/") Home
+    div 
+      table 
+        tr 
+          th Title 
+          th Genre 
+          th Author
+          th Action
+        each book in books 
+          tr
+            td  #{book.title}
+            td  #{book.author}
+            td  #{book.genre}
+            td
+              a(href="/viewAllBooks/" + book.id + "/delete" class='danger-btn') Delete
+        
+
+
+                    

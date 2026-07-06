@@ -28,7 +28,28 @@ app.get("/viewBooksByAuthor/:authorId/:authorName", (req, res) => {
 });
 
 app.get("/viewAllBooks", (req, res) => {
-  res.render("viewAllBooks");
+  db.all(
+    "SELECT b.id, b.title as title, a.name as author, g.name as genre from books b, authors a, genres g where b.author_id = a.id and b.genre_id = g.id",
+    (err, rows) => {
+      res.render("viewAllBooks", { books: rows });
+    },
+  );
+});
+
+app.get("/viewAllBooks/:bookId/:action", async (req, res) => {
+  const bookId = req.params.bookId;
+  const action = req.params.action;
+  if (action == "delete") {
+    await db.run("DELETE from books where id=" + bookId);
+  }
+  db.all(
+    "SELECT b.id, b.title as title, a.name as author, g.name as genre from books b, authors a, genres g where b.author_id = a.id and b.genre_id = g.id",
+    (err, rows) => {
+      res.render("viewAllBooks", {
+        books: rows,
+      });
+    },
+  );
 });
 
 app.listen(port, () => {
