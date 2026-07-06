@@ -28,3 +28,13 @@ def viewAllBooks():
     cursor.close()
 
     return render_template('books.html', books=results)
+
+@app.route('/deleteBook/<book_id>', methods=['POST'])
+def deleteBook(book_id):
+  conn = sqlite3.connect('./db/books.db')
+  cursor = conn.cursor()
+  cursor.execute('DELETE FROM books WHERE id = ?', (book_id,))
+  conn.commit()
+  conn.close()
+
+  return 'The book has been removed successfully <a href="/">Home</a>'
