@@ -3,7 +3,7 @@ html
   head
     title Local Library
     link(rel="stylesheet", href="/style.css")
-  body 
+  body  
     h1 List of all books
     div(class='container') 
       a(href="/") Home
@@ -14,18 +14,27 @@ html
           th Title 
           th Author 
           th Genre
+          th Favourite
           th Action
         each book in books 
           tr
             td  #{book.title}
             td  #{book.author}
             td  #{book.genre}
+            td 
+              form(action=`/addFavourite/${book.id}`, method='POST') 
+                button(type='submit' class='icon-btn')
+                  if favourites.includes(String(book.id))
+                    i(class="fa-solid fa-heart" color="red")
+                  else 
+                    i(class="fa-regular fa-heart" color="red")
             td(class="container")
               form(action=`/updateBook/${book.id}`  method='GET')
                 button(type='submit' class='action-btn') Update
               form(action=`/deleteBook/${book.id}/${book.title}` method='POST')
                 button(type='submit' class='danger-btn') Delete
         
+    script(src="https://kit.fontawesome.com/2e9503454b.js" crossorigin="anonymous")
 
 
                     

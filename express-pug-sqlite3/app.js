@@ -3,8 +3,20 @@ const app = express();
 const port = 3001;
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/books.db');
+const session = require('express-session');
 
 app.set('view engine', 'pug');
+app.use(
+  session({
+    secret: 'local library',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use((req, res, next) => {
+  res.locals.favourites = req.session.favourites || [];
+  next();
+});
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,7 +34,8 @@ app.get('/viewBooksByAuthor/:authorId/:authorName', (req, res) => {
   const authorId = req.params.authorId;
   const authorName = req.params.authorName;
   db.all(
-    'SELECT title from books WHERE author_id = ' + authorId,
+    'SELECT title from books WHERE author_id = ?',
+    [authorId],
     (err, rows) => {
       res.render('viewBooksByAuthor', { books: rows, authorName: authorName });
     }
@@ -30,6 +43,7 @@ app.get('/viewBooksByAuthor/:authorId/:authorName', (req, res) => {
 });
 
 app.get('/viewAllBooks', (req, res) => {
+  console.log(req.session.favourites);
   db.all(
     'SELECT b.id, b.title as title, a.name as author, g.name as genre from books b, authors a, genres g where b.author_id = a.id and b.genre_id = g.id',
     (err, rows) => {
@@ -94,7 +108,7 @@ app
     );
   });
 
-app.post('/deleteBook/:bookId/:title', async (req, res) => {
+app.post('/deleteBook/:bookId/:title', (req, res) => {
   const { bookId, title } = req.params;
   db.run('DELETE from books where id= ?', bookId, function (err) {
     if (err) {
@@ -104,6 +118,16 @@ app.post('/deleteBook/:bookId/:title', async (req, res) => {
       `<h3>The book "${title}" has been removed successfully <a href='/'>Home</a></h3>`
     );
   });
+});
+
+app.post('/addFavourite/:bookId', (req, res) => {
+  if (!req.session.favourites) {
+    req.session.favourites = [];
+  }
+  if (!req.session.favourites.includes(req.params.bookId))
+    req.session.favourites.push(req.params.bookId);
+  console.log(req.session.favourites);
+  res.redirect('/viewAllBooks');
 });
 
 app.listen(port, () => {
