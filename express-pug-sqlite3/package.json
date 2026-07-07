@@ -7,11 +7,15 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "start": "node --watch app.js"
+    "start": "node --watch app.js",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "express": "^5.2.1",
     "pug": "^3.0.4",
     "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.4"
   }
 }
