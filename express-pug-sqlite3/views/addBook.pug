@@ -1,0 +1,34 @@
+doctype html 
+html 
+  head 
+    title Local Library 
+    link(rel="stylesheet", href="/style.css")
+  body
+    h1 Add a Book   
+    form(action="/addBook" method="post")
+      table 
+        tbody 
+          tr 
+            td Title 
+            td 
+              input(type="text" name="title" id="title" required="required")
+          tr 
+            td Author 
+            td 
+              select(name="author" id="author")
+                option(value="1") Isaac Asimov
+                option(value="2") Agatha Christie
+                option(value="3") J.R.R. Tolkien
+                option(value="4") Walter Isaacson
+                option(value="5") Arthur Conan Doyle
+          tr 
+            td Genre 
+            td 
+              select(name="genre" id="genre")
+                option(value="1") Sci-Fi
+                option(value="2") Mystery
+                option(value="3") Fantasy
+                option(value="4") Biography
+          tr 
+            td 
+              button(type="submit" class="action-btn") Add

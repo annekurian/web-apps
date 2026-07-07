@@ -11,7 +11,7 @@ body {
 .container {
   display: flex;
   justify-content: space-between;
-  width: 200px;
+  width: 130px;
   margin-bottom: 10px;
 }
 
@@ -37,4 +37,16 @@ td {
   border-color: red;
   border-radius: 4px;
   background-color: #fff;
+}
+
+.action-btn {
+  color: white;
+  border-color: green;
+  border-radius: 4px;
+  background-color: green;
+  width: 5em;
+}
+
+.form-controls {
+  display: grid;
 }

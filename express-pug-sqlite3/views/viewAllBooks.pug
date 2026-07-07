@@ -7,6 +7,7 @@ html
     h1 List of all books
     div(class='container') 
       a(href="/") Home
+      a(href='addBook') Add a Book
     div 
       table 
         tr 
@@ -19,8 +20,10 @@ html
             td  #{book.title}
             td  #{book.author}
             td  #{book.genre}
-            td
-              form(action="/deleteBook/" + book.id + "/" + book.title method='POST')
+            td(class="container")
+              form(action=`/updateBook/${book.id}`  method='GET')
+                button(type='submit' class='action-btn') Update
+              form(action=`/deleteBook/${book.id}/${book.title}` method='POST')
                 button(type='submit' class='danger-btn') Delete
         
 
