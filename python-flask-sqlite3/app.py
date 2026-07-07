@@ -71,7 +71,6 @@ def updateBook(book_id):
     title = request.form['title']
     author = request.form['author']        
     genre = request.form['genre']
-    print(title, author, genre)
     conn = sqlite3.connect('./db/books.db')
     cursor = conn.cursor()
     cursor.execute('UPDATE books SET title=?, author_id=?, genre_id=? WHERE id=?', (title, author, genre, book_id,))
@@ -99,6 +98,5 @@ def addFavourite(book_id):
     if book_id not in session['favourites']:
       session['favourites'].append(book_id)
       session.modified=True
-    print(session['favourites'])
 
     return redirect(url_for('viewAllBooks'))
