@@ -1,10 +1,15 @@
-from flask import Flask
+from flask import Flask, session, redirect, url_for
 from flask import render_template
 from flask import request
 import sqlite3
 
 app=Flask(__name__)
 app.secret_key="local library"
+
+@app.context_processor
+def inject_favourites():
+   favourites = session.get('favourites',[])
+   return dict(favourites=favourites)
 
 @app.route('/')
 def index():
@@ -22,6 +27,8 @@ def viewAllAuthors():
 
 @app.route('/viewAllBooks', methods=['GET'])
 def viewAllBooks():
+    if 'favourites' not in session:
+      session['favourites'] = []
     con=sqlite3.connect("./db/books.db")
     cursor = con.cursor()
     cursor.execute('SELECT b.id, b.title as title, a.name as author, g.name as genre FROM books b, authors a, genres g WHERE b.author_id = a.id AND b.genre_id = g.id')
@@ -84,3 +91,14 @@ def deleteBook(book_id):
 
   return '''The book has been removed successfully 
   <a href="/">Home</a> &nbsp &nbsp <a href="/viewAllBooks">View All Books</a>'''
+
+@app.route('/addFavourite/<book_id>')
+def addFavourite(book_id):
+    if 'favourites' not in session:
+      session['favourites'] = []
+    if book_id not in session['favourites']:
+      session['favourites'].append(book_id)
+      session.modified=True
+    print(session['favourites'])
+
+    return redirect(url_for('viewAllBooks'))

@@ -12,14 +12,15 @@
   <body>
     <h1>Books</h1>
     <div class="container">
-    <a href="/">Home</a>
-    <a href="/addBook">Add a Book</a>
+      <a href="/">Home</a>
+      <a href="/addBook">Add a Book</a>
     </div>
     <table>
       <tr>
         <th>Title</th>
         <th>Author</th>
         <th>Genre</th>
+        <th>Favourites</th>
         <th>Action</th>
       </tr>
       {% for book in books %}
@@ -27,16 +28,31 @@
         <td>{{book[1]}}</td>
         <td>{{book[2]}}</td>
         <td>{{book[3]}}</td>
+        <td>
+          <form action="/addFavourite/{{ book[0] }}" method="GET">
+            <button type="submit" class="icon-btn">
+              {% if book[0]|string in favourites %}
+              <i class="fa-solid fa-heart" style="color: red"></i>
+              {% else %}
+              <i class="fa-regular fa-heart" style="color: red"></i>
+              {% endif %}
+            </button>
+          </form>
+        </td>
         <td class="container">
           <form action="/updateBook/{{ book[0] }}" method="GET">
-            <button type="submit" class="action-btn">Update</a>
+            <button type="submit" class="action-btn">Update</button>
           </form>
           <form action="/deleteBook/{{ book[0] }}" method="POST">
-            <button type="submit" class="danger-btn">Delete</a>
+            <button type="submit" class="danger-btn">Delete</button>
           </form>
         </td>
       </tr>
       {% endfor %}
     </table>
+    <script
+      src="https://kit.fontawesome.com/2e9503454b.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
