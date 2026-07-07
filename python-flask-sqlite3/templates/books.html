@@ -28,7 +28,7 @@
         <td>{{book[2]}}</td>
         <td>{{book[3]}}</td>
         <td class="container">
-          <form action="/updateBook/{{ book[0] }}" method="POST">
+          <form action="/updateBook/{{ book[0] }}" method="GET">
             <button type="submit" class="action-btn">Update</a>
           </form>
           <form action="/deleteBook/{{ book[0] }}" method="POST">

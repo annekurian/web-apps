@@ -49,7 +49,30 @@ def addBook():
             <a href="/">Home</a> &nbsp &nbsp <a href="/viewAllBooks">View All Books</a>
             '''.format(cursor.lastrowid)
   
+@app.route('/updateBook/<book_id>', methods=['GET', 'POST'])
+def updateBook(book_id):
+  if request.method == 'GET':
+    conn = sqlite3.connect('./db/books.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM books WHERE id = ?', (book_id,))
+    book = cursor.fetchone()
+    conn.close()
 
+    return render_template('update_book.html', book=book)
+  
+  elif request.method == 'POST':
+    title = request.form['title']
+    author = request.form['author']        
+    genre = request.form['genre']
+    print(title, author, genre)
+    conn = sqlite3.connect('./db/books.db')
+    cursor = conn.cursor()
+    cursor.execute('UPDATE books SET title=?, author_id=?, genre_id=? WHERE id=?', (title, author, genre, book_id,))
+    conn.commit()
+    conn.close()
+
+    return '''The book has been updated successfully 
+    <a href="/">Home</a> &nbsp &nbsp <a href="/viewAllBooks">View All Books</a>'''
 
 @app.route('/deleteBook/<book_id>', methods=['POST'])
 def deleteBook(book_id):
@@ -59,4 +82,5 @@ def deleteBook(book_id):
   conn.commit()
   conn.close()
 
-  return 'The book has been removed successfully <a href="/">Home</a>'
+  return '''The book has been removed successfully 
+  <a href="/">Home</a> &nbsp &nbsp <a href="/viewAllBooks">View All Books</a>'''

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css')}}"
+    />
+    <link rel="stylesheet" href="https://cloudflare.com" />
+    <title>Local Library</title>
+  </head>
+  <body>
+    <h1>Update Book Details</h1>
+    <form
+      class="form-controls"
+      action="/updateBook/{{ book[0]}}"
+      method="POST"
+    >
+      <table width="30%">
+        <tbody>
+          <tr>
+            <td>Book ID</td>
+            <td>{{ book[0]}}</td>
+          </tr>
+          <tr>
+            <td><label for="title"> Title </label></td>
+            <td>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                required="required"
+                value="{{book[1]}}"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="author"> Author </label>
+            </td>
+            <td>
+              <select name="author" id="author" required="required">
+                <option value="1" {% if book[2] == 1 %} {{ "selected"}} {% endif %}>Isaac Asimov</option>
+                <option value="2" {% if book[2] == 2 %} {{ "selected"}} {% endif %}>Agatha Christie</option>
+                <option value="3" {% if book[2] == 3 %} {{ "selected"}} {% endif %}>J.R.R. Tolkien</option>
+                <option value="4" {% if book[2] == 4 %} {{ "selected"}} {% endif %}>Walter Isaacson</option>
+                <option value="5" {% if book[2] == 5 %} {{ "selected"}} {% endif %}>Arthur Conan Doyle</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="genre"> Genre </label></td>
+            <td>
+              <select name="genre" id="genre" required="required">
+                <option value="1" {% if book[3] == 1 %} {{ "selected"}} {% endif %}>Sci-Fi</option>
+                <option value="2" {% if book[3] == 2 %} {{ "selected"}} {% endif %}>Mystery</option>
+                <option value="3" {% if book[3] == 3 %} {{ "selected"}} {% endif %}>Fantasy</option>
+                <option value="4" {% if book[3] == 4 %} {{ "selected"}} {% endif %}>Biography</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><button type="submit" class="action-btn">Update</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div style="margin-top: 10px">
+      <a href="/">Home</a>
+    </div>
+  </body>
+</html>
