@@ -4,6 +4,7 @@ from flask import request
 import sqlite3
 
 app=Flask(__name__)
+app.secret_key="local library"
 
 @app.route('/')
 def index():
@@ -28,6 +29,27 @@ def viewAllBooks():
     cursor.close()
 
     return render_template('books.html', books=results)
+
+@app.route('/addBook', methods=['GET','POST'])
+def addBook():
+   if request.method == 'GET':
+      return render_template('add_book.html')
+   elif request.method == 'POST':
+      title = request.form['title']
+      author = request.form['author']        
+      genre = request.form['genre']
+
+      conn = sqlite3.connect('./db/books.db')
+      cursor = conn.cursor()
+      cursor.execute('INSERT INTO books (title, author_id, genre_id) VALUES ( ?, ?, ?)', (title, author, genre))
+      conn.commit()
+      conn.close()
+
+      return '''Book added succesfully with ID: {} 
+            <a href="/">Home</a> &nbsp &nbsp <a href="/viewAllBooks">View All Books</a>
+            '''.format(cursor.lastrowid)
+  
+
 
 @app.route('/deleteBook/<book_id>', methods=['POST'])
 def deleteBook(book_id):

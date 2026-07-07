@@ -11,7 +11,10 @@
   </head>
   <body>
     <h1>Books</h1>
+    <div class="container">
     <a href="/">Home</a>
+    <a href="/addBook">Add a Book</a>
+    </div>
     <table>
       <tr>
         <th>Title</th>
@@ -24,9 +27,12 @@
         <td>{{book[1]}}</td>
         <td>{{book[2]}}</td>
         <td>{{book[3]}}</td>
-        <td>
+        <td class="container">
+          <form action="/updateBook/{{ book[0] }}" method="POST">
+            <button type="submit" class="action-btn">Update</a>
+          </form>
           <form action="/deleteBook/{{ book[0] }}" method="POST">
-            <button type="submit">Delete</a>
+            <button type="submit" class="danger-btn">Delete</a>
           </form>
         </td>
       </tr>

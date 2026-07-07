@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css')}}"
+    />
+    <link rel="stylesheet" href="https://cloudflare.com" />
+    <title>Local Library</title>
+  </head>
+  <body>
+    <h1>Add a Book</h1>
+    <form class="form-controls" action="/addBook" method="POST">
+      <table width="30%">
+        <tbody>
+          <tr>
+            <td><label for="title"> Title </label></td>
+            <td>
+              <input type="text" name="title" id="title" required="required" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="author" style="margin: 20px 20px 20px 0">
+                Author
+              </label>
+            </td>
+            <td>
+              <select name="author" id="author" required="required">
+                <option value="1">Isaac Asimov</option>
+                <option value="2">Agatha Christie</option>
+                <option value="3">J.R.R. Tolkien</option>
+                <option value="4">Walter Isaacson</option>
+                <option value="5">Arthur Conan Doyle</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="genre"> Genre </label></td>
+            <td>
+              <select name="genre" id="genre" required="required">
+                <option value="1">Sci-Fi</option>
+                <option value="2">Mystery</option>
+                <option value="3">Fantasy</option>
+                <option value="4">Biography</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><button type="submit" class="action-btn">Add</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <div style="margin-top: 10px">
+      <a href="/">Home</a>
+    </div>
+  </body>
+</html>
