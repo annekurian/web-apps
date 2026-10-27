@@ -1,14 +1,17 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const app = express();
 const port = 3001;
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/books.db');
 const session = require('express-session');
 
+dotenv.config();
+
 app.set('view engine', 'pug');
 app.use(
   session({
-    secret: 'local library',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
   })
@@ -97,7 +100,6 @@ app
       [title, author, genre, req.params.bookId],
       (err) => {
         if (err) {
-          console.log(err.message);
           res.send('Error updating book details: ' + err.message);
         }
         res.send(
@@ -126,7 +128,6 @@ app.post('/addFavourite/:bookId', (req, res) => {
   }
   if (!req.session.favourites.includes(req.params.bookId))
     req.session.favourites.push(req.params.bookId);
-  console.log(req.session.favourites);
   res.redirect('/viewAllBooks');
 });
 

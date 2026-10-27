@@ -1,10 +1,14 @@
 from flask import Flask, session, redirect, url_for
 from flask import render_template
 from flask import request
+from dotenv import load_dotenv
+import os
 import sqlite3
 
+load_dotenv()
+
 app=Flask(__name__)
-app.secret_key="local library"
+app.secret_key=os.getenv("SESSION_SECRET")
 
 @app.context_processor
 def inject_favourites():
